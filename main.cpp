@@ -19,6 +19,7 @@
 using namespace std;
 
 #define node pair<double, double>
+#define INT_MAX std::numeric_limits<std::int32_t>::max()
 
 class graph{
 public:
@@ -56,7 +57,7 @@ vector<int> primMST(graph& g, int V)
     bool mstSet[V];
     
     for (int i = 0; i < V; i++)
-        key[i] = std::numeric_limits<std::int32_t>::max(), mstSet[i] = false;
+        key[i] = INT_MAX, mstSet[i] = false;
     key[0] = 0;
     parent[0] = -1;
     for (int count = 0; count < V-1; count++)
