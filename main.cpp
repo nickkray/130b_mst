@@ -35,37 +35,34 @@ public:
     
 };
 
-double minKey(vector<double> &key, vector<bool> &mstSet, int n)
-{
-    double min = INT_MAX;
-    int min_index;
-    
-    for (int i = 0; i < n; i++)
-        if (mstSet[i] == false && key[i] < min)
-            min = key[i], min_index = i;
-    
-    return min_index;
-}
-
-
 vector<int> primMST(graph& g, int n)
 {
     
     vector<int> parent(n, 0);
-    vector<double> key(n, INT_MAX);
     vector<bool> mstSet(n, false);
+    vector<double> key(n, INT_MAX);
     
     key[0] = 0;
     parent[0] = -1;
-    for (int count = 0; count < n-1; count++)
-    {
-        int u = minKey(key, mstSet, n);
-        mstSet[u] = true;
-        for (int i = 0; i < n; i++)
-            if (g.edges[u][i]!=0 && mstSet[i] == false && g.edges[u][i] <  key[i])
-                parent[i]  = u, key[i] = g.edges[u][i];
-    }
     
+    for (int j = 0; j < n-1; j++)
+    {
+        double min = INT_MAX;
+        int min_index;
+        
+        for (int i = 0; i < n; i++)
+            if (mstSet[i] == false && key[i] < min){
+                min = key[i];
+                min_index = i;
+            }
+        
+        mstSet[min] = true;
+        for (int i = 0; i < n; i++)
+            if (g.edges[min][i]!=0 && !mstSet[i] && g.edges[min][i]< key[i]){
+                parent[i]  = min;
+                key[i] = g.edges[min][i];
+            }
+    }
     return parent;
 }
 
