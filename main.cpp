@@ -48,19 +48,19 @@ vector<int> primMST(graph& g, int n)
     for (int j = 0; j < n-1; j++)
     {
         double min = INT_MAX;
-        int min_index;
+        int minIndex;
         
         for (int i = 0; i < n; i++)
             if (mstSet[i] == false && key[i] < min){
                 min = key[i];
-                min_index = i;
+                minIndex = i;
             }
         
-        mstSet[min] = true;
+        mstSet[minIndex] = true;
         for (int i = 0; i < n; i++)
-            if (g.edges[min][i]!=0 && !mstSet[i] && g.edges[min][i]< key[i]){
-                parent[i]  = min;
-                key[i] = g.edges[min][i];
+            if (g.edges[minIndex][i]!=0 && !mstSet[i] && g.edges[minIndex][i]< key[i]){
+                parent[i]  = minIndex;
+                key[i] = g.edges[minIndex][i];
             }
     }
     return parent;
