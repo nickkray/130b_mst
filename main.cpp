@@ -12,6 +12,10 @@
 #include <sstream>
 #include <cmath>
 
+#include <cstdint>
+#include <limits>
+#include <algorithm>
+
 using namespace std;
 
 #define node pair<double, double>
