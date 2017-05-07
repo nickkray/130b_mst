@@ -48,13 +48,17 @@ vector<int> primMST(graph& g, int n)
     for (int j = 0; j < n-1; j++)
     {
         double min = INT_MAX;
-        int minIndex;
+        int minIndex=-1;
         
         for (int i = 0; i < n; i++)
             if (mstSet[i] == false && key[i] < min){
                 min = key[i];
                 minIndex = i;
             }
+        if(minIndex == -1 || min == INT_MAX){
+            cout << "Something went wrong";
+            exit(0);
+        }
         
         mstSet[minIndex] = true;
         for (int i = 0; i < n; i++)
@@ -120,10 +124,21 @@ int main(int argc, const char * argv[]) {
     vector<int> mst = primMST(g, n);
     vector<pair<int, int>> mstEdges (n, pair<int, int>(0,0));
     
-    for (int i = 1; i < n; i++)
+    for (int i = 1; i < n; i++){
         mstEdges[i].first = min(mst[i], i), mstEdges[i].second = max(i, mst[i]);
-    
+        if(!isEdge[mstEdges[i].first][mstEdges[i].second] && vn!=0){
+            cout << "Incomplete graph";
+            exit(1);
+        }
+    }
+        
     sort(mstEdges.begin(), mstEdges.end());
+    
+    if(mstEdges.size() <n){
+        cout << "Not enough edges uh";
+        exit(1);
+    }
+        
     
     for (int i = 1; i < n; i++)
         cout << mstEdges[i].first << " " << mstEdges[i].second << endl;
